@@ -36,6 +36,9 @@ def _timeout(sig, frame):
     pass
 
 
+# We make the pipes use the first available fd numbers starting at startfd.
+# This makes it easier to differentiate different kinds of pipes when using
+# strace.
 def _make_pipe(startfd):
     (a,b) = os.pipe()
     fds = (fcntl.fcntl(a, fcntl.F_DUPFD, startfd),
